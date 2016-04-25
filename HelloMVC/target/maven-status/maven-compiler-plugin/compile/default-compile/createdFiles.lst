@@ -1,0 +1,10 @@
+com\ktds\cocomo\web\BadgeController.class
+com\ktds\cocomo\interceptor\TestInterceptor.class
+com\ktds\cocomo\biz\ArticleBiz.class
+com\ktds\cocomo\handler\CustomExceptionHandler.class
+com\ktds\cocomo\vo\LoginVO.class
+com\ktds\cocomo\dao\ArticleDAO.class
+com\ktds\cocomo\biz\impl\ArticleBizImpl.class
+com\ktds\cocomo\dao\impl\ArticleDAOImpl.class
+com\ktds\cocomo\web\ArticleController.class
+com\ktds\cocomo\web\IndexController.class

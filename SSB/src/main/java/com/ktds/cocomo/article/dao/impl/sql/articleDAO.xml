@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+					"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ArticleDAO">
+
+	<!-- 
+	<select id="getNowSystemDate" resultType="string">
+		SELECT	SYSDATE
+		FROM	DUAL
+	</select>
+	 -->
+	 
+	 <insert id="doWriteAction" parameterType="ArticleVO">
+	 	INSERT INTO ARTICLE	(
+	 							ARTICLE_ID
+	 							, ARTICLE_NUMBER
+	 							, SUBJECT
+	 							, WRITER
+	 							, DESCRIPTION
+	 							, CREATED_DATE
+	 							, MODIFIED_DATE
+	 						)
+	 	VALUES				(
+	 							#{ articleId }
+	 							, #{ articleNumber }
+	 							, #{ subject }
+	 							, #{ writer }
+	 							, #{ description }
+	 							, #{ createdDate }
+	 							, #{ modifiedDate }
+	 						)
+	 </insert>
+	
+</mapper>

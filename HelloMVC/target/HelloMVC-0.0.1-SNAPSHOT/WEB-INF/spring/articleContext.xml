@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- DAO와 DB 연동 -->
+	<bean id="articleDAO" class="com.ktds.cocomo.dao.impl.ArticleDAOImpl" >
+		<!-- sqlSessionFactory 써도 되지만 Template 쓰면 간편해진다. -->
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
+	</bean>
+	
+	<bean id="articleBiz" class="com.ktds.cocomo.biz.impl.ArticleBizImpl" >
+		<property name="articleDAO" ref="articleDAO" />
+	</bean>
+	
+</beans>
