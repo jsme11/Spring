@@ -4,7 +4,9 @@ import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.cocomo.article.service.ArticleService;
@@ -29,5 +31,28 @@ public class ArticleController {
 	@RequestMapping("/doWriteAction")
 	public ModelAndView doWriteAction(@Valid ArticleVO articleVO, Errors errors) {
 		return articleService.doWriteAction(articleVO, errors);
+	}
+
+	@RequestMapping("/list")
+	public ModelAndView viewListPage(@RequestParam(required = false, defaultValue = "0") int pageNo) {
+		return articleService.getAllArticleList(pageNo);
+	}
+	
+	@RequestMapping("/detail/{articleId}")
+	public ModelAndView viewDetailPage(@PathVariable String articleId) {
+		return articleService.getOneArticle(articleId);
+	}
+	
+	@RequestMapping("/modify/{articleId}")
+	public ModelAndView viewModifyPage(@PathVariable String articleId) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("article/modify");
+		view.addObject("articleVO", articleService.getOneArticle(articleId));
+		return view;
+	}
+	
+	@RequestMapping("/doModifyAction")
+	public ModelAndView doModifyAction(@Valid ArticleVO articleVO, Errors errors) {
+		return articleService.doModifyAction(articleVO, errors);
 	}
 }

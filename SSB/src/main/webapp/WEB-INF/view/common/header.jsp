@@ -8,10 +8,12 @@
 <head>
 
 <!-- CSS  -->
-<link rel="stylesheet" type="text/css"   href="<c:url value="/BBS/css/header.css"/>" />
+<link rel="stylesheet" type="text/css"   href="<c:url value="/css/header.css"/>" />
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>SSB</title>
+
+<script type="text/javascript" src="/SSB/js/jquery-1.12.1.js"></script>
 </head>
 <body>
 	<div id="wrapper">

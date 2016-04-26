@@ -9,4 +9,10 @@ public interface ArticleService {
 
 	public ModelAndView doWriteAction(ArticleVO articleVO, Errors errors);
 
+	public ModelAndView getAllArticleList(int pageNo);
+
+	public ModelAndView getOneArticle(String articleId);
+
+	public ModelAndView doModifyAction(ArticleVO articleVO, Errors errors);
+
 }

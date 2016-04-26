@@ -8,8 +8,7 @@
 	<mvc:annotation-driven />
 
 	<mvc:resources location="/WEB-INF/resources/js/" mapping="/js/**" />
-	<mvc:resources location="/WEB-INF/resources/css/"
-		mapping="/css/**" />
+	<mvc:resources location="/WEB-INF/resources/css/" mapping="/css/**" />
 
 	<!-- ViewResolver 생성 RequestDispatcher.forword(); 와 같이 쓰이는 것 -->
 	<bean id="viewResolver"
@@ -27,7 +26,7 @@
 	<bean id="validator"
 		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
 
-	<bean id="customExceptionHandler" class="com.ktds.bhyu.handler.CustomExceptionHandler" />
+	<bean id="customExceptionHandler" class="com.ktds.cocomo.handler.CustomExceptionHandler" />
 
 	<bean id="articleContoller" class="com.ktds.cocomo.article.web.ArticleController">
 		<property name="articleService" ref="articleService" />

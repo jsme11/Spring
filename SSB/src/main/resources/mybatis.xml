@@ -5,13 +5,12 @@
 <configuration>
 	
 	<typeAliases>
-		<typeAlias type="com.ktds.bhyu.article.vo.ArticleVO" alias="ArticleVO"/>
-		<typeAlias type="com.ktds.bhyu.article.vo.ArticleSearchVO" alias="ArticleSearchVO"/>
+		<typeAlias type="com.ktds.cocomo.article.vo.ArticleVO" alias="ArticleVO"/>
+		<typeAlias type="com.ktds.cocomo.article.vo.ArticleSearchVO" alias="ArticleSearchVO"/>
 	</typeAliases>
 	
 	<mappers>
-		<mapper resource="/com/ktds/bhyu/handler/socket/dao/impl/sql/paintDAO.xml" />
-		<mapper resource="/com/ktds/bhyu/article/dao/impl/sql/articleDAO.xml" />
+		<mapper resource="/com/ktds/cocomo/article/dao/impl/sql/articleDAO.xml" />
 	</mappers>
 	
 </configuration>
