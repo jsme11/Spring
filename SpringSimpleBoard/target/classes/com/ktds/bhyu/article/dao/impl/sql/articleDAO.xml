@@ -73,6 +73,13 @@
 		WHERE	ARTICLE_ID = #{articleId}
 	</select>
 	
+	<select id="getArticleIdByWriter" parameterType="string" resultType="string">
+		SELECT	ARTICLE_ID
+		FROM	ARTICLE
+		WHERE	WRITER = #{writer}
+		AND		ROWNUM = 1
+	</select>
+	
 	<delete id="doDeleteArticle" parameterType="string" >
 		DELETE
 		FROM	ARTICLE

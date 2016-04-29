@@ -90,5 +90,10 @@ public class ArticleBizImpl implements ArticleBiz {
 		
 		return articleDAO.doModifyArticle(checkArticleVO) > 0;
 	}
+
+	@Override
+	public String getArticleIdByWriter(String writer) {
+		return articleDAO.getArticleIdByWriter(writer);
+	}
 	
 }
