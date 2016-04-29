@@ -1,5 +1,6 @@
 package com.ktds.bhyu.article.vo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import kr.co.hucloud.utilities.web.Paging;
@@ -8,18 +9,29 @@ public class ArticleListVO {
 
 	private Paging paging;
 	private List<ArticleVO> articleList;
-	
+
 	public Paging getPaging() {
 		return paging;
 	}
+
 	public void setPaging(Paging paging) {
 		this.paging = paging;
 	}
+
 	public List<ArticleVO> getArticleList() {
+
+		List<ArticleVO> articles = new ArrayList<ArticleVO>();
+		articles.addAll(articleList);
+
 		return articleList;
 	}
+
 	public void setArticleList(List<ArticleVO> articleList) {
-		this.articleList = articleList;
+
+		List<ArticleVO> articles = new ArrayList<ArticleVO>();
+		articles.addAll(articleList);
+
+		this.articleList = articles;
 	}
-	
+
 }

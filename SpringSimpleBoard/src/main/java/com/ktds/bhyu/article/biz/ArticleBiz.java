@@ -6,7 +6,7 @@ import com.ktds.bhyu.article.vo.ArticleSearchVO;
 import com.ktds.bhyu.article.vo.ArticleVO;
 
 public interface ArticleBiz {
-	
+
 	public boolean writeNewArticle(ArticleVO articleVO);
 
 	public int getTotalArticleCount();
@@ -18,5 +18,5 @@ public interface ArticleBiz {
 	public boolean doDeleteArticle(String articleId);
 
 	public boolean doModifyArticle(ArticleVO articleVO);
-	
+
 }

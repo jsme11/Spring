@@ -11,8 +11,8 @@
 	</typeAliases>
 	
 	<mappers>
-		<mapper resource="/com/ktds/bhyu/handler/socket/dao/impl/sql/paintDAO.xml" />
-		<mapper resource="/com/ktds/bhyu/article/dao/impl/sql/articleDAO.xml" />
+		<mapper resource="com/ktds/bhyu/handler/socket/dao/impl/sql/paintDAO.xml" />
+		<mapper resource="com/ktds/bhyu/article/dao/impl/sql/articleDAO.xml" />
 	</mappers>
 	
 </configuration>
