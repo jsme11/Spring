@@ -51,8 +51,8 @@ public class ArticleDAOImpl extends SqlSessionDaoSupport implements ArticleDAO {
 	}
 
 	@Override
-	public String getArticleIdByWriter(String writer) {
-		return getSqlSession().selectOne("ArticleDAO.getArticleIdByWriter", writer);
+	public String getOneArticleIdByWriter(String writer) {
+		return getSqlSession().selectOne("ArticleDAO.getOneArticleIdByWriter", writer);
 	}
 
 }

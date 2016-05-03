@@ -92,8 +92,8 @@ public class ArticleBizImpl implements ArticleBiz {
 	}
 
 	@Override
-	public String getArticleIdByWriter(String writer) {
-		return articleDAO.getArticleIdByWriter(writer);
+	public String getOneArticleIdByWriter(String writer) {
+		return articleDAO.getOneArticleIdByWriter(writer);
 	}
 	
 }

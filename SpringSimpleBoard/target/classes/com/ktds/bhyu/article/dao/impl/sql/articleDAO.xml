@@ -73,7 +73,7 @@
 		WHERE	ARTICLE_ID = #{articleId}
 	</select>
 	
-	<select id="getArticleIdByWriter" parameterType="string" resultType="string">
+	<select id="getOneArticleIdByWriter" parameterType="string" resultType="string">
 		SELECT	ARTICLE_ID
 		FROM	ARTICLE
 		WHERE	WRITER = #{writer}

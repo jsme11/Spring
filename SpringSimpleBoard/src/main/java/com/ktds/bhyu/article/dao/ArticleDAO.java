@@ -23,6 +23,6 @@ public interface ArticleDAO {
 
 	public int doModifyArticle(ArticleVO articleVO);
 
-	public String getArticleIdByWriter(String writer);
+	public String getOneArticleIdByWriter(String writer);
 
 }

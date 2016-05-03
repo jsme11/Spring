@@ -63,9 +63,9 @@ public class ArticleControllerTest {
 		int prevTotalCount = articleListVO.getPaging().getTotalArticleCount();
 
 		ArticleVO articleVO = new ArticleVO();
-		articleVO.setSubject("JUNIT Test, Subject");
-		articleVO.setWriter("JUnit Test, Writer");
-		articleVO.setDescription("JUnit Test, Description");
+		articleVO.setSubject("JUnit, Subject in Controller");
+		articleVO.setWriter("JUnit, Writer in Controller");
+		articleVO.setDescription("JUnit, Description in Controller");
 
 		BindingResult errors = new BeanPropertyBindingResult(articleVO, "writeForm");
 
@@ -91,8 +91,8 @@ public class ArticleControllerTest {
 	@Test
 	public void doWriteActionTestWithError() {
 		ArticleVO articleVO = new ArticleVO();
-		articleVO.setWriter("JUnit Test2, Writer");
-		articleVO.setDescription("JUnit Test2, Description");
+		articleVO.setWriter("JUnit, Writer in Controller Error");
+		articleVO.setDescription("JUnit, Description in Controller Error");
 
 		BindingResult errors = new BeanPropertyBindingResult(articleVO, "writeForm");
 		ArticleVOValidator validator = new ArticleVOValidator();
@@ -115,8 +115,8 @@ public class ArticleControllerTest {
 	@Test
 	public void doWriteActionTestWithError2() {
 		ArticleVO articleVO = new ArticleVO();
-		articleVO.setSubject("JUnit Test2, Subject");
-		articleVO.setWriter("JUnit Test2, Writer");
+		articleVO.setSubject("JUnit, Subject in Controller Error2");
+		articleVO.setWriter("JUnit, Writer in Controller Error2");
 
 		BindingResult errors = new BeanPropertyBindingResult(articleVO, "writeForm");
 		ArticleVOValidator validator = new ArticleVOValidator();
@@ -139,7 +139,7 @@ public class ArticleControllerTest {
 	@Test
 	public void doWriteActionTestWithError3() {
 		ArticleVO articleVO = new ArticleVO();
-		articleVO.setWriter("JUnit Test2, Writer");
+		articleVO.setWriter("JUnit, Writer in Controller Error3");
 
 		BindingResult errors = new BeanPropertyBindingResult(articleVO, "writeForm");
 		ArticleVOValidator validator = new ArticleVOValidator();

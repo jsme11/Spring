@@ -19,5 +19,5 @@ public interface ArticleBiz {
 
 	public boolean doModifyArticle(ArticleVO articleVO);
 
-	public String getArticleIdByWriter(String writer);
+	public String getOneArticleIdByWriter(String writer);
 }

@@ -29,24 +29,22 @@ public class ArticleDAOTest {
 	public void insertNewArticleTest() {
 
 		int articleNumber = articleDAO.nextArticleSeq();
+
 		if (articleNumber > 0) {
 			String nowDate = articleDAO.nowDate();
 
-			/*
-			 * ArticleID의 형식 AR-20160421-000001
-			 */
 			String articleId = "AR-" + nowDate + "-" + lpad(articleNumber + "", 6, "0");
+
 			if (nowDate != null) {
 
 				ArticleVO articleVO = new ArticleVO();
 				articleVO.setArticleId(articleId);
 				articleVO.setArticleNumber(articleNumber);
 				articleVO.setWriter("JUnit");
-				articleVO.setSubject("JUnit test subject in DAO Test insertNewArticle Method");
-				articleVO.setDescription("JUnit test Description in DAO Test insertNewArticle Method");
+				articleVO.setSubject("JUnit, subject in DAO");
+				articleVO.setDescription("JUnit, Description in DAO");
 
-				int executeQuery = articleDAO.insertNewArticle(articleVO);
-				assertTrue(executeQuery > 0);
+				assertTrue(articleDAO.insertNewArticle(articleVO) > 0);
 			} else {
 				fail("fail");
 			}
@@ -57,9 +55,7 @@ public class ArticleDAOTest {
 
 	@Test
 	public void getTotalArticleCountTest() {
-
-		int executeQuery = articleDAO.getTotalArticleCount();
-		assertTrue(executeQuery > 0);
+		assertTrue(articleDAO.getTotalArticleCount() > 0);
 	}
 
 	@Test
@@ -67,9 +63,11 @@ public class ArticleDAOTest {
 
 		Paging paging = new Paging();
 		paging.setPageNumber(0 + "");
-		paging.setTotalArticleCount(articleDAO.getTotalArticleCount());
 
-		if (paging != null) {
+		int totalArticleCount = articleDAO.getTotalArticleCount();
+		if (totalArticleCount > 0) {
+
+			paging.setTotalArticleCount(totalArticleCount);
 
 			ArticleSearchVO searchVO = new ArticleSearchVO();
 			searchVO.setPageNo(0);
@@ -86,7 +84,7 @@ public class ArticleDAOTest {
 	@Test
 	public void getOneArticleTest() {
 
-		String articleId = articleDAO.getArticleIdByWriter("JUnit");
+		String articleId = articleDAO.getOneArticleIdByWriter("JUnit");
 
 		if (articleId != null) {
 			ArticleVO articleVO = articleDAO.getOneArticle(articleId);
@@ -109,10 +107,9 @@ public class ArticleDAOTest {
 	@Test
 	public void doDeleteArticleTest() {
 
-		String articleId = articleDAO.getArticleIdByWriter("JUnit");
+		String articleId = articleDAO.getOneArticleIdByWriter("JUnit");
 		if (articleId != null) {
-			int executeQuery = articleDAO.doDeleteArticle(articleId);
-			assertTrue(executeQuery > 0);
+			assertTrue(articleDAO.doDeleteArticle(articleId) > 0);
 		} else {
 			fail("fail");
 		}
@@ -121,14 +118,13 @@ public class ArticleDAOTest {
 	@Test
 	public void doModifyArticleTest() {
 
-		String articleId = articleDAO.getArticleIdByWriter("JUnit");
+		String articleId = articleDAO.getOneArticleIdByWriter("JUnit");
 
 		if (articleId != null) {
 			ArticleVO articleVO = articleDAO.getOneArticle(articleId);
 
 			if (articleVO != null) {
-				int executeQuery = articleDAO.doModifyArticle(articleVO);
-				assertTrue(executeQuery > 0);
+				assertTrue(articleDAO.doModifyArticle(articleVO) > 0);
 			} else {
 				fail("fail");
 			}
@@ -140,15 +136,14 @@ public class ArticleDAOTest {
 	@Test
 	public void doModifyArticleTest2() {
 
-		String articleId = articleDAO.getArticleIdByWriter("JUnit");
+		String articleId = articleDAO.getOneArticleIdByWriter("JUnit");
 
 		if (articleId != null) {
 			ArticleVO articleVO = articleDAO.getOneArticle(articleId);
 
 			if (articleVO != null) {
-				articleVO.setSubject("JUnit test - 2 Subject in DAO Test");
-				int executeQuery = articleDAO.doModifyArticle(articleVO);
-				assertTrue(executeQuery > 0);
+				articleVO.setSubject("JUnit, Changed Subject in DAO");
+				assertTrue(articleDAO.doModifyArticle(articleVO) > 0);
 			} else {
 				fail("fail");
 			}
@@ -160,15 +155,14 @@ public class ArticleDAOTest {
 	@Test
 	public void doModifyArticleTest3() {
 
-		String articleId = articleDAO.getArticleIdByWriter("JUnit");
+		String articleId = articleDAO.getOneArticleIdByWriter("JUnit");
 
 		if (articleId != null) {
 			ArticleVO articleVO = articleDAO.getOneArticle(articleId);
 
 			if (articleVO != null) {
-				articleVO.setDescription("JUnit test - 3 Description in DAO Test");
-				int executeQuery = articleDAO.doModifyArticle(articleVO);
-				assertTrue(executeQuery > 0);
+				articleVO.setDescription("JUnit, Changed Description in DAO");
+				assertTrue(articleDAO.doModifyArticle(articleVO) > 0);
 			} else {
 				fail("fail");
 			}
@@ -180,16 +174,15 @@ public class ArticleDAOTest {
 	@Test
 	public void doModifyArticleTest4() {
 
-		String articleId = articleDAO.getArticleIdByWriter("JUnit");
+		String articleId = articleDAO.getOneArticleIdByWriter("JUnit");
 
 		if (articleId != null) {
 			ArticleVO articleVO = articleDAO.getOneArticle(articleId);
 
 			if (articleVO != null) {
-				articleVO.setSubject("JUnit test - 4 Subject in DAO Test");
-				articleVO.setDescription("JUnit test - 4 Description in DAO Test");
-				int executeQuery = articleDAO.doModifyArticle(articleVO);
-				assertTrue(executeQuery > 0);
+				articleVO.setSubject("JUnit, Changed Subject in DAO - 2");
+				articleVO.setDescription("JUnit, Changed Description in DAO - 2");
+				assertTrue(articleDAO.doModifyArticle(articleVO) > 0);
 			} else {
 				fail("fail");
 			}

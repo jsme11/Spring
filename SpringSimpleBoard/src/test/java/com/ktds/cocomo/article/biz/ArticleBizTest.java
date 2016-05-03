@@ -24,25 +24,21 @@ public class ArticleBizTest {
 
 	@Autowired
 	private ArticleBiz articleBiz;
-	private String articleId;
 
 	@Test
 	public void writeNewArticleTest() {
 
 		ArticleVO articleVO = new ArticleVO();
-		articleVO.setSubject("JUNIT Test, Subject in Biz Test");
+		articleVO.setSubject("JUnit, Subject in Biz");
 		articleVO.setWriter("JUnit");
-		articleVO.setDescription("JUnit Test, Description in Biz Test");
+		articleVO.setDescription("JUnit, Description in Biz");
 
-		boolean isSuccess = articleBiz.writeNewArticle(articleVO);
-		assertTrue(isSuccess);
+		assertTrue(articleBiz.writeNewArticle(articleVO));
 	}
 
 	@Test
 	public void getTotalArticleCountTest() {
-
-		int totalArticleCount = articleBiz.getTotalArticleCount();
-		assertTrue(totalArticleCount > 0);
+		assertTrue(articleBiz.getTotalArticleCount() > 0);
 	}
 
 	@Test
@@ -50,17 +46,17 @@ public class ArticleBizTest {
 
 		Paging paging = new Paging();
 		paging.setPageNumber(0 + "");
-		paging.setTotalArticleCount(articleBiz.getTotalArticleCount());
 
-		if(paging != null) {
-			
+		int totalArticleCount = articleBiz.getTotalArticleCount();
+
+		if (totalArticleCount > 0) {
+			paging.setTotalArticleCount(totalArticleCount);
 			ArticleSearchVO searchVO = new ArticleSearchVO();
 			searchVO.setPageNo(0);
 			searchVO.setStartIndex(paging.getStartArticleNumber());
 			searchVO.setEndIndex(paging.getEndArticleNumber());
-			
+
 			List<ArticleVO> articleList = articleBiz.getAllArticle(searchVO);
-			
 			assertNotNull(articleList);
 		} else {
 			fail("fail");
@@ -70,20 +66,34 @@ public class ArticleBizTest {
 	@Test
 	public void getOneArticleTest() {
 
-		String articleId = articleBiz.getArticleIdByWriter("JUnit");
-		ArticleVO articleVO = articleBiz.getOneArticle(articleId);
+		String articleId = articleBiz.getOneArticleIdByWriter("JUnit");
 
-		assertNotNull(articleVO);
+		if (articleId != null) {
+			ArticleVO articleVO = articleBiz.getOneArticle(articleId);
+			if(articleVO != null) {
+				assertNotNull(articleVO.getArticleId());
+				assertNotNull(articleVO.getArticleNumber());
+				assertNotNull(articleVO.getWriter());
+				assertNotNull(articleVO.getSubject());
+				assertNotNull(articleVO.getDescription());
+				assertNotNull(articleVO.getCreatedDate());
+				assertNotNull(articleVO.getModifiedDate());
+			}
+		} else {
+			fail("fail");
+		}
 	}
 
 	@Test
 	public void doDeleteArticleTest() {
 
-		String articleId = articleBiz.getArticleIdByWriter("JUnit");
-		
-		boolean isSuccess = articleBiz.doDeleteArticle(articleId);
+		String articleId = articleBiz.getOneArticleIdByWriter("JUnit");
 
-		assertTrue(isSuccess);
+		if (articleId != null) {
+			assertTrue(articleBiz.doDeleteArticle(articleId));
+		} else {
+			fail("fail");
+		}
 	}
 
 	/*
@@ -92,12 +102,16 @@ public class ArticleBizTest {
 	@Test
 	public void doModifyArticleTest() {
 
-		String articleId = articleBiz.getArticleIdByWriter("JUnit");
-		ArticleVO articleVO = articleBiz.getOneArticle(articleId);
+		String articleId = articleBiz.getOneArticleIdByWriter("JUnit");
 
-		if (articleVO != null) {
-			boolean isSuccess = articleBiz.doModifyArticle(articleVO);
-			assertTrue(isSuccess);
+		if (articleId != null) {
+			ArticleVO articleVO = articleBiz.getOneArticle(articleId);
+
+			if (articleVO != null) {
+				assertTrue(articleBiz.doModifyArticle(articleVO));
+			} else {
+				fail("fail");
+			}
 		} else {
 			fail("fail");
 		}
@@ -109,13 +123,16 @@ public class ArticleBizTest {
 	@Test
 	public void doModifyArticleTest2() {
 
-		String articleId = articleBiz.getArticleIdByWriter("JUnit");
-		ArticleVO articleVO = articleBiz.getOneArticle(articleId);
+		String articleId = articleBiz.getOneArticleIdByWriter("JUnit");
+		if (articleId != null) {
 
-		if (articleVO != null) {
-			articleVO.setSubject("JUNIT Test - 2, Changed Subject in Biz Test");
-			boolean isSuccess = articleBiz.doModifyArticle(articleVO);
-			assertTrue(isSuccess);
+			ArticleVO articleVO = articleBiz.getOneArticle(articleId);
+			if (articleVO != null) {
+				articleVO.setSubject("JUnit, Changed Subject in Biz");
+				assertTrue(articleBiz.doModifyArticle(articleVO));
+			} else {
+				fail("fail");
+			}
 		} else {
 			fail("fail");
 		}
@@ -127,13 +144,17 @@ public class ArticleBizTest {
 	@Test
 	public void doModifyArticleTest3() {
 
-		String articleId = articleBiz.getArticleIdByWriter("JUnit");
-		ArticleVO articleVO = articleBiz.getOneArticle(articleId);
+		String articleId = articleBiz.getOneArticleIdByWriter("JUnit");
 
-		if (articleVO != null) {
-			articleVO.setDescription("JUNIT Test - 3, Changed Description in Biz Test");
-			boolean isSuccess = articleBiz.doModifyArticle(articleVO);
-			assertTrue(isSuccess);
+		if (articleId != null) {
+			ArticleVO articleVO = articleBiz.getOneArticle(articleId);
+
+			if (articleVO != null) {
+				articleVO.setDescription("JUnit, Changed Description in Biz");
+				assertTrue(articleBiz.doModifyArticle(articleVO));
+			} else {
+				fail("fail");
+			}
 		} else {
 			fail("fail");
 		}
@@ -145,14 +166,18 @@ public class ArticleBizTest {
 	@Test
 	public void doModifyArticleTest4() {
 
-		String articleId = articleBiz.getArticleIdByWriter("JUnit");
-		ArticleVO articleVO = articleBiz.getOneArticle(articleId);
+		String articleId = articleBiz.getOneArticleIdByWriter("JUnit");
 
-		if (articleVO != null) {
-			articleVO.setSubject("JUNIT Test - 4, Changed Subject in Biz Test");
-			articleVO.setDescription("JUNIT Test - 4, Changed Description in Biz Test");
-			boolean isSuccess = articleBiz.doModifyArticle(articleVO);
-			assertTrue(isSuccess);
+		if (articleId != null) {
+			ArticleVO articleVO = articleBiz.getOneArticle(articleId);
+
+			if (articleVO != null) {
+				articleVO.setSubject("JUnit, Changed Subject in Biz - 2");
+				articleVO.setDescription("JUnit, Changed Description in Biz - 2");
+				assertTrue(articleBiz.doModifyArticle(articleVO));
+			} else {
+				fail("fail");
+			}
 		} else {
 			fail("fail");
 		}
