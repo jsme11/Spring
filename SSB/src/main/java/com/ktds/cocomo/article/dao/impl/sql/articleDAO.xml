@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+					"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ArticleDAO">
+
+	<select id="getNextArticleId" resultType="_int">
+		SELECT	ARTICLE_ID_SEQ.NEXTVAL
+		FROM	DUAL
+	</select>
+
+	<select id="getNowDate" resultType="string">
+		SELECT	SYSDATE
+		FROM	DUAL
+	</select>
+	
+	<select id="getTotalArticleCount" resultType="_int">
+		SELECT	COUNT(ARTICLE_ID)
+		FROM	ARTICLE
+	</select>
+	
+	<select id="getAllArticleList" parameterType="ArticleSearchVO" resultType="ArticleVO">
+		SELECT	ARTICLE_ID articleId
+				, ARTICLE_NUMBER articleNumber
+				, SUBJECT subject
+				, WRITER writer
+				, DESCRIPTION description
+				, CREATED_DATE createdDate
+				, MODIFIED_DATE modifiedDate
+		FROM	(
+					SELECT	ROWNUM AS RNUM
+							, ARTICLE.*
+					FROM	(
+								SELECT	*
+								FROM	ARTICLE
+								ORDER	BY ARTICLE_ID DESC
+							) ARTICLE
+					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+				)
+		WHERE	RNUM >= #{startIndex}
+			
+	</select>
+	
+	<select id="getOneArticle" parameterType="string" resultType="ArticleVO">
+		SELECT	ARTICLE_ID articleId
+				, ARTICLE_NUMBER articleNumber
+				, SUBJECT subject
+				, WRITER writer
+				, DESCRIPTION description
+				, CREATED_DATE createdDate
+				, MODIFIED_DATE modifiedDate
+		FROM	ARTICLE
+		WHERE	ARTICLE_ID = #{articleId}
+	</select>
+	 
+	<insert id="doWriteAction" parameterType="ArticleVO">
+	 	INSERT INTO ARTICLE	(
+	 							ARTICLE_ID
+	 							, ARTICLE_NUMBER
+	 							, SUBJECT
+	 							, WRITER
+	 							, DESCRIPTION
+	 							, CREATED_DATE
+	 							, MODIFIED_DATE
+	 						)
+	 	VALUES				(
+	 							#{ articleId }
+	 							, #{ articleNumber }
+	 							, #{ subject }
+	 							, #{ writer }
+	 							, #{ description }
+	 							, SYSDATE
+	 							, SYSDATE
+	 						)
+	</insert>
+	
+	<update id="doModifyAction" parameterType="ArticleVO">
+		UPDATE	ARTICLE
+		SET		MODIFIED_DATE = SYSDATE
+				<if test="subject != null and subject != ''">
+				, SUBJECT = #{subject}
+				</if>
+				<if test="description != null and description != ''">
+				, DESCRIPTION = #{description}
+				</if>
+		WHERE	ARTICLE_ID = #{articleId}
+	</update>
+	
+</mapper>

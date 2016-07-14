@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean id="articleDao"
+			class="com.ktds.cocomo.article.dao.impl.ArticleDaoImpl">
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
+	</bean>
+	
+	<bean id="articleBiz"
+			class="com.ktds.cocomo.article.biz.impl.ArticleBizImpl" >
+		<property name="articleDao" ref="articleDao" />
+	</bean>
+	
+	<bean id="articleService"
+			class="com.ktds.cocomo.article.service.impl.ArticleServiceImpl" >
+		<property name="articleBiz" ref="articleBiz" />
+	</bean>	
+</beans>

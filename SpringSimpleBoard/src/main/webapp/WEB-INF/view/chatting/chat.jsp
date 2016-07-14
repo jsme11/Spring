@@ -4,32 +4,44 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>! ! ! Chatting Page ! ! !</title>
+<title>Insert title here</title>
 <script type="text/javascript" src="/board/js/jquery-1.12.1.js"></script>
 <script type="text/javascript" src="/board/js/sockjs-1.0.3.min.js"></script>
 <script type="text/javascript">
 
 	var chatSock = null;
-	
 	var message = {};
-	
-	$(document).ready(function(){
-		chatSock = new SockJS("/board/echo-ws");
-		chatSock.onmessage = function(evt){
-			console.log(evt.data);
-			//alert(evt.data);
-			$("#chatMessage").append(evt.data + "<br/>");
-			$("#chatMessage").scrollTop(99999999);
-		};
+
+	$(document).ready(function() {
 		
-		$("#message").keyup(function(event) {
-			if (event.keyCode == 13) {
+		$("#message").keyup( function(e) {
+			if ( e.keyCode == 13 ) {
+				
 				$("#sendMessage").click();
 			}
-		});
+		}) ;
 		
+		chatSock = new SockJS("/board/echo-ws");
+		chatSock.onopen = function() {
+			message = {};
+			message.message = "반갑습니다!";
+			message.type = "all";
+			message.to = "all";
+			
+			chatSock.send( JSON.stringify(message) );
+		}
 		
-		$("#sendMessage").click(function(){
+		chatSock.onmessage = function(evt) {
+			//alert(evt.data);
+			$("#chatMessage").append(evt.data + "<br/>");
+			$("#chatMessage").scrollTop(999999999);
+		}
+		
+		chatSock.onclose = function() {
+			//sock.send("10.225.152.165 퇴장");
+		}
+		
+		$("#sendMessage").click(function() {
 			if ( $("#message").val() != "" ) {
 				
 				message = {};
@@ -43,26 +55,26 @@
 					message.to = to;
 				}
 				
-				chatSock.send(JSON.stringify(message));
+				chatSock.send( JSON.stringify(message) );
 				$("#chatMessage").append("나 -> " + $("#message").val() + "<br/>");
-				$("#chatMessage").scrollTop(99999999);
+				$("#chatMessage").scrollTop(999999999);
 				
 				$("#message").val("");
 			}
 		});
-		
+	
 	});
 
 </script>
 </head>
 <body>
-	채팅페이지이에요.
-	
 	<input type="text" id="to" />
-	<input type="text" id="message" />
-	<input type="button" id="sendMessage" value="메시지 보내기" />
+	<input type="text" id="message" autoFocus />
+	<input type="button" id="sendMessage" value="보내기" />
 	
-	<div id="chatMessage" style="overflow: auto; max-height: 500px;"></div>
+	<div id="chatMessage" style="overFlow: auto; max-height: 500px;"></div>	
 	
 </body>
 </html>
+
+
